@@ -1,4 +1,12 @@
-"""backend URL Configuration
+"""
+Author: sky-eve-yang
+Date: 2023-03-09 17:12:16
+LastEditTime: 2023-03-09 20:12:35
+LastEditors: sky-eve-yang
+Description: 
+
+
+backend URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -33,6 +41,8 @@ from dvadmin.system.views.login import (
 )
 from dvadmin.system.views.system_config import InitSettingsViewSet
 from dvadmin.utils.swagger import CustomOpenAPISchemaGenerator
+
+from party_history_study.views import partyHistoryStudyViewSet
 
 # =========== 初始化系统配置 =================
 dispatch.init_system_config()
@@ -81,6 +91,8 @@ urlpatterns = (
             path("api/init/dictionary/", InitDictionaryViewSet.as_view()),
             path("api/init/settings/", InitSettingsViewSet.as_view()),
             path("apiLogin/", ApiLogin.as_view()),
+            path('', include('party_history_study.urls')),
+            re_path('api/party_history_study/export_data/', partyHistoryStudyViewSet.as_view({'post': 'export_data', })),
         ]
         + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
         + static(settings.STATIC_URL, document_root=settings.STATIC_URL)

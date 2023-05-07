@@ -15,7 +15,7 @@ from dvadmin.system.views.role import RoleViewSet
 from dvadmin.system.views.system_config import SystemConfigViewSet
 from dvadmin.system.views.user import UserViewSet
 
-system_url = routers.SimpleRouter()
+system_url = routers.SimpleRouter() 
 system_url.register(r'menu', MenuViewSet)
 system_url.register(r'menu_button', MenuButtonViewSet)
 system_url.register(r'role', RoleViewSet)

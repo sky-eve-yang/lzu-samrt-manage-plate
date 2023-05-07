@@ -43,7 +43,7 @@ export function BatchDel (keys) {
 
 /**
  * 重置密码
- * @param obj
+ * @param obj 
  * @returns {*}
  * @constructor
  */

@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     "dvadmin.system",
     "drf_yasg",
     "captcha",
-    'channels',
+    "channels",
+    "party_history_study"
 ]
 
 MIDDLEWARE = [

@@ -180,7 +180,7 @@ function createRequestFunction (service) {
       timeout: 60000,
       baseURL: util.baseURL(),
       data: {},
-      params: params
+      params: params 
     }
     return service(Object.assign(configDefault, config))
   }
@@ -221,10 +221,12 @@ export const downloadFile = function ({ url, params, method, filename = '文件�
     url: url,
     method: method,
     params: params,
-    responseType: 'blob'
-    // headers: {Accept: 'application/vnd.openxmlformats-officedocument'}
+    responseType: 'blob',
+    headers: {Accept: 'application/vnd.openxmlformats-officedocument'}
   }).then(res => {
-    const xlsxName = window.decodeURI(res.headers['content-disposition'].split('=')[1])
+    console.log(res);
+    // const xlsxName = window.decodeURI(res.headers['content-disposition'].split('=')[1])
+    const xlsxName = ''
     const fileName = xlsxName || `${filename}.xlsx`
     if (res) {
       const blob = new Blob([res.data], { type: 'charset=utf-8' })

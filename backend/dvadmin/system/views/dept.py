@@ -180,10 +180,29 @@ class DeptViewSet(CustomModelViewSet):
                     dept_list = []
             queryset = Dept.objects.filter(id__in=dept_list).values('id', 'name', 'parent')
         return DetailResponse(data=queryset, msg="获取成功")
-
+ 
 
     @action(methods=["GET"], detail=False, permission_classes=[AnonymousUserPermission])
     def all_dept(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         data = queryset.filter(status=True).order_by('sort').values('name', 'id', 'parent')
         return DetailResponse(data=data, msg="获取成功")
+    
+    @action(methods=["GET"], detail=False, permission_classes=[AnonymousUserPermission])
+    def get_parent_dept(self, request, *args, **kwargs):
+        print("\n\n",request.user,"\n\n")
+        queryset = self.filter_queryset(self.get_queryset())
+        data = queryset.filter(status=True).order_by('sort').values('name', 'id', 'parent')
+        # 对于超管用户 返回所有的部门
+        if (request.user.is_superuser or request.user.dept_id ==1):
+            return DetailResponse(data=data, msg="获取成功")
+        
+        # 否则 返回当前用户所在部门的上一级父级部门
+        parent_id = data.first().get('parent')
+        data = Dept.objects.filter(id=parent_id).values('id', 'name', 'parent')
+        
+        return DetailResponse(data=data, msg="获取成功")
+
+
+
+

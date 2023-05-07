@@ -8,10 +8,11 @@ export const crudOptions = (vm) => {
       compact: true
     },
     options: {
-      height: '100%',
-     // tableType: 'vxe-table',
-      //rowKey: true,
-      rowId: 'id'
+      tableType: "vxe-table",
+      rowKey: true, // 必须设置，true or false
+      rowId: "id",
+      height: "100%", // 表格高度100%, 使用toolbar必须设置
+      highlightCurrentRow: false
     },
     selectionRow: {
       align: 'center',
@@ -23,21 +24,21 @@ export const crudOptions = (vm) => {
       view: {
         thin: true,
         text: '',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Retrieve')
         }
       },
       edit: {
         thin: true,
         text: '',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Update')
         }
       },
       remove: {
         thin: true,
         text: '',
-        disabled () {
+        disabled() {
           return !vm.hasPermissions('Delete')
         }
       },
@@ -48,7 +49,7 @@ export const crudOptions = (vm) => {
           size: 'small',
           type: 'warning',
           icon: 'el-icon-refresh-left',
-          show () {
+          show() {
             return vm.hasPermissions('ResetPassword')
           },
           emit: 'resetPassword'
@@ -140,7 +141,7 @@ export const crudOptions = (vm) => {
           }
         },
         disabled: true,
-        valueResolve (row, key) {
+        valueResolve(row, key) {
           if (row.password) {
             row.password = vm.$md5(row.password)
           }

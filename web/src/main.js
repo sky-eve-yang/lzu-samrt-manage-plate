@@ -29,6 +29,10 @@ import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
 
+// 导出
+import pluginExport from '@d2-projects/vue-table-export'
+Vue.use(pluginExport)
+
 // md5加密
 import md5 from 'js-md5'
 
